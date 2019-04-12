@@ -1,0 +1,41 @@
+﻿  2.cpp
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(749): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(761): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(797): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(1674): warning C4101: “res”: 未引用的局部变量
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(2067): warning C4101: “res”: 未引用的局部变量
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(2161): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(2201): warning C4554: “<<”: 检查运算符优先级可能存在的错误；使用圆括号阐明优先级
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(2317): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(2382): warning C4554: “&”: 检查运算符优先级可能存在的错误；使用圆括号阐明优先级
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(2747): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(2855): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(3009): warning C4018: “<=”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(3043): warning C4018: “<=”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(3211): warning C4806: “!=”: 不安全操作: 从类型“bool”提升到类型“int”的值不能等于给定的常量
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(3557): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(3653): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(3662): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(3943): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(3957): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(4038): warning C4244: “-=”: 从“double”转换到“int”，可能丢失数据
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(4041): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(4706): warning C4244: “return”: 从“__int64”转换到“int”，可能丢失数据
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(5093): warning C4018: “<=”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(5113): warning C4018: “<=”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(5180): warning C4018: “>=”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(5243): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(5406): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(5574): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(5654): warning C4018: “<”: 有符号/无符号不匹配
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(72): warning C4715: “find_prt”: 不是所有的控件路径都返回值
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(1474): warning C4715: “twoSum”: 不是所有的控件路径都返回值
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(1498): warning C4715: “majorityElement0”: 不是所有的控件路径都返回值
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(1786): warning C4715: “isHappy”: 不是所有的控件路径都返回值
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(2191): warning C4715: “height”: 不是所有的控件路径都返回值
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(2377): warning C4715: “kthSmallest”: 不是所有的控件路径都返回值
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(2495): warning C4715: “lowestCommonAncestor0”: 不是所有的控件路径都返回值
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(3214): warning C4715: “coinChange”: 不是所有的控件路径都返回值
+e:\c_language\vs2017_practice\consoleapplication1\consoleapplication1\2.cpp(5411): warning C4715: “constructRectangle”: 不是所有的控件路径都返回值
+  ConsoleApplication1.vcxproj -> E:\C_Language\VS2017_practice\ConsoleApplication1\Debug\ConsoleApplication1.exe
+  ConsoleApplication1.vcxproj -> E:\C_Language\VS2017_practice\ConsoleApplication1\Debug\ConsoleApplication1.pdb (Partial PDB)
