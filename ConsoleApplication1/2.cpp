@@ -779,33 +779,33 @@ struct UndirectedGraphNode {
 };
 UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
 	if (node == NULL) return NULL;
-	//¿ª±ÙĞÂµÄ¿Õ¼ä´æ´¢copy
+	//å¼€è¾Ÿæ–°çš„ç©ºé—´å­˜å‚¨copy
 	UndirectedGraphNode* copy = new UndirectedGraphNode(node->label);
-	//²éÕÒÈ¥ÖØÓÃµÄmap  unordered_map<node, clonedNode> ·ÅÔ­Ê¼nodeºÍÆä¸´ÖÆÆ·
+	//æŸ¥æ‰¾å»é‡ç”¨çš„map  unordered_map<node, clonedNode> æ”¾åŸå§‹nodeå’Œå…¶å¤åˆ¶å“
 	map<UndirectedGraphNode*, UndirectedGraphNode*> cmap;
-	//´æ´¢µÄ¶ÓÁĞ£¬½øĞĞBFS
+	//å­˜å‚¨çš„é˜Ÿåˆ—ï¼Œè¿›è¡ŒBFS
 	queue<UndirectedGraphNode*> graphQ;
-	graphQ.push(node);               //¸ù½áµãÌí¼Óµ½¶ÓÁĞ
-	cmap.insert({ node, copy });   //°Ñ¸ù½ÚµãºÍÆä¸´ÖÆÆ··ÅÈëmap  
+	graphQ.push(node);               //æ ¹ç»“ç‚¹æ·»åŠ åˆ°é˜Ÿåˆ—
+	cmap.insert({ node, copy });   //æŠŠæ ¹èŠ‚ç‚¹å’Œå…¶å¤åˆ¶å“æ”¾å…¥map  
 
 	while (!graphQ.empty()){
-		UndirectedGraphNode* cur = graphQ.front();   //µ±Ç°´¦Àí¶ÔÏó
+		UndirectedGraphNode* cur = graphQ.front();   //å½“å‰å¤„ç†å¯¹è±¡
 		graphQ.pop();
-		UndirectedGraphNode* curClone = cmap[cur];   //µ±Ç°´¦Àí¶ÔÏóµÄ¸´ÖÆÆ· ÒòÎªÔÚÇ°ÃæµÄneighborÀïÒÑ¾­±»´´½¨
+		UndirectedGraphNode* curClone = cmap[cur];   //å½“å‰å¤„ç†å¯¹è±¡çš„å¤åˆ¶å“ å› ä¸ºåœ¨å‰é¢çš„neighboré‡Œå·²ç»è¢«åˆ›å»º
 
-													 //¶Ôµ±Ç°¶¥µãµÄÃ¿Ò»¸öneighbor½øĞĞÅĞ¶Ï£¬ÒòÎªÓĞµÄneighborÒÑ¾­±»¸´ÖÆ£¬ÓĞµÄÃ»ÓĞ
+													 //å¯¹å½“å‰é¡¶ç‚¹çš„æ¯ä¸€ä¸ªneighborè¿›è¡Œåˆ¤æ–­ï¼Œå› ä¸ºæœ‰çš„neighborå·²ç»è¢«å¤åˆ¶ï¼Œæœ‰çš„æ²¡æœ‰
 		for (int i = 0; i < cur->neighbors.size(); i++){
 			UndirectedGraphNode* neighbor = cur->neighbors[i];
-			//Èç¹ûÖ®Ç°Ã»ÓĞ¿½±´¹ı
+			//å¦‚æœä¹‹å‰æ²¡æœ‰æ‹·è´è¿‡
 			if (cmap.find(neighbor) == cmap.end()){
 				UndirectedGraphNode* neighborClone = new UndirectedGraphNode(neighbor->label);
-				curClone->neighbors.push_back(neighborClone);   //¸øcurCloneÌí¼Ó¸´ÖÆµÄneighbor
-				cmap.insert({ neighbor, neighborClone });   //Ìí¼Óµ½mapÖĞ
-				graphQ.push(neighbor);   //Ìí¼Óµ½¶ÓÁĞÎªÁË½«À´µÄ±éÀú
+				curClone->neighbors.push_back(neighborClone);   //ç»™curCloneæ·»åŠ å¤åˆ¶çš„neighbor
+				cmap.insert({ neighbor, neighborClone });   //æ·»åŠ åˆ°mapä¸­
+				graphQ.push(neighbor);   //æ·»åŠ åˆ°é˜Ÿåˆ—ä¸ºäº†å°†æ¥çš„éå†
 			}
-			else{    // Ö®Ç°ÒÑ¾­±»¸´ÖÆ¹ıµÄneighbor
-				UndirectedGraphNode* neighborClone = cmap[neighbor];   //´ÓmapÖĞÈ¡³öÖ®Ç°µÄcopy°æ±¾
-				curClone->neighbors.push_back(neighborClone);     // ¸øcurCloneÌí¼Ó¸´ÖÆµÄneighbor
+			else{    // ä¹‹å‰å·²ç»è¢«å¤åˆ¶è¿‡çš„neighbor
+				UndirectedGraphNode* neighborClone = cmap[neighbor];   //ä»mapä¸­å–å‡ºä¹‹å‰çš„copyç‰ˆæœ¬
+				curClone->neighbors.push_back(neighborClone);     // ç»™curCloneæ·»åŠ å¤åˆ¶çš„neighbor
 			}
 		}
 	}
@@ -835,43 +835,43 @@ int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
 	return -1;
 }
 int candy(vector<int>& ratings) {
-	if (ratings.empty())	return 0;						//¿ÕÊı×é·µ»Ø0
-	vector<int> rating{ INT_MIN };							//¿½±´£¬²¢ÔÚÁ½²à¸÷ÁôÒ»¿ÕÎ»ÖÃÒÔ·½±ã±ß½çÔËËã
+	if (ratings.empty())	return 0;						//ç©ºæ•°ç»„è¿”å›0
+	vector<int> rating{ INT_MIN };							//æ‹·è´ï¼Œå¹¶åœ¨ä¸¤ä¾§å„ç•™ä¸€ç©ºä½ç½®ä»¥æ–¹ä¾¿è¾¹ç•Œè¿ç®—
 	rating.insert(rating.end(), ratings.begin(), ratings.end());
 	rating.push_back(INT_MIN);
-	int lowest = INT_MAX, len = rating.size();				//±£´æÔ­Êı×éÖĞ×îĞ¡Öµ
-	map<int, vector<int>> mp;								//´æ´¢²»Í¬Êı×ÖÔÚÊı×éÖĞÎ»ÖÃ£¬Ã¿Ò»Êı×Ö¿ÉÄÜÓĞ¶à¸öÎ»ÖÃÒò´ËÓÃvector±£´æ
+	int lowest = INT_MAX, len = rating.size();				//ä¿å­˜åŸæ•°ç»„ä¸­æœ€å°å€¼
+	map<int, vector<int>> mp;								//å­˜å‚¨ä¸åŒæ•°å­—åœ¨æ•°ç»„ä¸­ä½ç½®ï¼Œæ¯ä¸€æ•°å­—å¯èƒ½æœ‰å¤šä¸ªä½ç½®å› æ­¤ç”¨vectorä¿å­˜
 	for (int i = 1; i != len - 1; ++i) {
 		mp[rating[i]].push_back(i);
 		if (rating[i] < lowest)
 			lowest = rating[i];
 	}
-	rating[0] = rating[len - 1] = 0;				//±ß½çÉèÖÃÎª0£¬ÒÔ·½±ã¼ÆËã
+	rating[0] = rating[len - 1] = 0;				//è¾¹ç•Œè®¾ç½®ä¸º0ï¼Œä»¥æ–¹ä¾¿è®¡ç®—
 
-	int n = 0;												//¼ÆÊıÆ÷
+	int n = 0;												//è®¡æ•°å™¨
 	for (map<int, vector<int>>::iterator i = mp.begin(); i != mp.end(); ++i, ++n) {	
-		int num = i->second.size();							//½«ratingÊı×éÖĞ¸÷¸öÊı×ÖÉèÖÃÎª1,2,3...µÄÁ¬ĞøĞÎÊ½£¬ÒÔ·½±ã¼ÆËã
+		int num = i->second.size();							//å°†ratingæ•°ç»„ä¸­å„ä¸ªæ•°å­—è®¾ç½®ä¸º1,2,3...çš„è¿ç»­å½¢å¼ï¼Œä»¥æ–¹ä¾¿è®¡ç®—
 		for (int j = 0; j != num; ++j) {
 			int loc = i->second[j];	
 			rating[loc] = 1 + n;
 		}
 	}
-	for (map<int, vector<int>>::iterator i = mp.begin(); i != mp.end(); ++i) {			//°´´ÓĞ¡µ½´óË³Ğò·Ö±ğ½øĞĞ²»Í¬Êı×ÖµÄ¼ÆËã
-		int num = i->second.size();							//Ã¿Ò»¸öÊı×ÖµÄÊıÁ¿
+	for (map<int, vector<int>>::iterator i = mp.begin(); i != mp.end(); ++i) {			//æŒ‰ä»å°åˆ°å¤§é¡ºåºåˆ†åˆ«è¿›è¡Œä¸åŒæ•°å­—çš„è®¡ç®—
+		int num = i->second.size();							//æ¯ä¸€ä¸ªæ•°å­—çš„æ•°é‡
 		for (int j = 0; j != num; ++j) {
-			int loc = i->second[j];							//¶ÔÃ¿¸öÊı×ÖµÄ²»Í¬Î»ÖÃ¸üĞÂ
-			if (rating[loc] <= rating[loc - 1] && rating[loc] <= rating[loc + 1])		//Èô´ËÖµ²»´óÓÚÆäÁ½²àÈÎÒâÒ»Öµ£¬Ôò½«ÆäÉèÖÃÎª1
+			int loc = i->second[j];							//å¯¹æ¯ä¸ªæ•°å­—çš„ä¸åŒä½ç½®æ›´æ–°
+			if (rating[loc] <= rating[loc - 1] && rating[loc] <= rating[loc + 1])		//è‹¥æ­¤å€¼ä¸å¤§äºå…¶ä¸¤ä¾§ä»»æ„ä¸€å€¼ï¼Œåˆ™å°†å…¶è®¾ç½®ä¸º1
 				rating[loc] = 1;
 			else {
-				int a = (rating[loc] > rating[loc - 1]) ? rating[loc - 1] : INT_MIN;	//·ñÔò£¬ÔÚÁ½²àÖĞÕÒ³öĞ¡ÓÚËûµÄÖµÖĞ×î´óµÄÄÇ¸öÖµ£¬²¢
-				int b = (rating[loc] > rating[loc + 1]) ? rating[loc + 1] : INT_MIN;	//½«Æä¼Ó1£¬¸³¸øµ±Ç°Öµ
+				int a = (rating[loc] > rating[loc - 1]) ? rating[loc - 1] : INT_MIN;	//å¦åˆ™ï¼Œåœ¨ä¸¤ä¾§ä¸­æ‰¾å‡ºå°äºä»–çš„å€¼ä¸­æœ€å¤§çš„é‚£ä¸ªå€¼ï¼Œå¹¶
+				int b = (rating[loc] > rating[loc + 1]) ? rating[loc + 1] : INT_MIN;	//å°†å…¶åŠ 1ï¼Œèµ‹ç»™å½“å‰å€¼
 				rating[loc] = max(a, b) + 1;
 			}
 		}
 	}
 	int res(0);
-	for (int i = 1; i != len - 1; ++i)						//½«¸üĞÂ¹ıÖµµÄÊı×éÀÛ¼Ó£¬²¢Ã¿¸öÖµ¶¼¼ÓÉÏ×îĞ¡ÖµÓë1µÄ²îÖµ£¬
-		res += rating[i];									//¼ÆËãÖ®ºÍ¼´Îª½á¹û
+	for (int i = 1; i != len - 1; ++i)						//å°†æ›´æ–°è¿‡å€¼çš„æ•°ç»„ç´¯åŠ ï¼Œå¹¶æ¯ä¸ªå€¼éƒ½åŠ ä¸Šæœ€å°å€¼ä¸1çš„å·®å€¼ï¼Œ
+		res += rating[i];									//è®¡ç®—ä¹‹å’Œå³ä¸ºç»“æœ
 	return res;
 }
 int singleNumber0(vector<int>& nums) {
@@ -895,14 +895,14 @@ int singleNumber(vector<int>& nums) {
 	int result = 0;
 	for (int i = 0; i != 32; ++i)
 	{
-		int mask = 1 << i;  //´Ó×îµÍÎ»¿ªÊ¼
+		int mask = 1 << i;  //ä»æœ€ä½ä½å¼€å§‹
 		int cnt = 0;
 		for (int j = 0; j != length; ++j)
 		{
-			if (mask & nums[j])  //Í³¼ÆÓĞ1µÄ¸öÊı
+			if (mask & nums[j])  //ç»Ÿè®¡æœ‰1çš„ä¸ªæ•°
 				++cnt;
 		}
-		if (cnt % 3)  //²»ÄÜÕû³ıËµÃ÷ÔÚ¸ÃÎ»Îª1
+		if (cnt % 3)  //ä¸èƒ½æ•´é™¤è¯´æ˜åœ¨è¯¥ä½ä¸º1
 			result |= mask;
 	}
 	return result;
@@ -1003,7 +1003,7 @@ void reorderList(ListNode *head)
 {
 	if (head == NULL || head->next == NULL)
 		return;
-	//·Ö³ÉÁ½¶Î
+	//åˆ†æˆä¸¤æ®µ
 	ListNode *preSlow = NULL;
 	ListNode *slow = head, *fast = head;
 	while (fast&&fast->next)
@@ -1012,9 +1012,9 @@ void reorderList(ListNode *head)
 		slow = slow->next;
 		fast = fast->next->next;
 	}
-	preSlow->next = NULL; //Ç°°ë¶Î
+	preSlow->next = NULL; //å‰åŠæ®µ
 
-						  //·´×ªºó°ë¶Î
+						  //åè½¬ååŠæ®µ
 	ListNode *newBeg = slow;
 	ListNode *last = newBeg->next;
 	while (last)
@@ -1026,10 +1026,10 @@ void reorderList(ListNode *head)
 	}
 	slow->next = NULL;
 
-	//ºÏ²¢
+	//åˆå¹¶
 	fast = head;
 	preSlow = NULL;
-	while (fast) //×¢£ºÒÔÇ°°ë¶ÎÎªÌõ¼ş
+	while (fast) //æ³¨ï¼šä»¥å‰åŠæ®µä¸ºæ¡ä»¶
 	{
 		ListNode *tem = newBeg->next;
 		newBeg->next = fast->next;
@@ -1038,7 +1038,7 @@ void reorderList(ListNode *head)
 		preSlow = newBeg;
 		newBeg = tem;
 	}
-	if (newBeg != NULL)   //Òò½Úµã¸öÊıÎªÆæÊıÊ±£¬ºó¶Î±ÈÇ°¶Î¶àÒ»¸ö£¬ËùÒÔ×îºóÒªÅĞ¶Ï
+	if (newBeg != NULL)   //å› èŠ‚ç‚¹ä¸ªæ•°ä¸ºå¥‡æ•°æ—¶ï¼Œåæ®µæ¯”å‰æ®µå¤šä¸€ä¸ªï¼Œæ‰€ä»¥æœ€åè¦åˆ¤æ–­
 		preSlow->next = newBeg;
 }
 vector<int> preorderTraversal(TreeNode* root) {
@@ -1090,14 +1090,14 @@ vector<int> postorderTraversal(TreeNode* root) {
 }
 ListNode* insertionSortList(ListNode* head) {
 	if (!head)	return nullptr;
-	ListNode* res = new ListNode(-1);		//Í·½áµã
+	ListNode* res = new ListNode(-1);		//å¤´ç»“ç‚¹
 	res->next = head;
-	ListNode* tail = head;					//ÒÑÅÅĞò²¿·ÖÎ²½áµã
-	ListNode* temp = tail->next;			//µ±Ç°ÅÅĞò½áµã
+	ListNode* tail = head;					//å·²æ’åºéƒ¨åˆ†å°¾ç»“ç‚¹
+	ListNode* temp = tail->next;			//å½“å‰æ’åºç»“ç‚¹
 	while (temp) {
-		ListNode* temp0 = res->next, *behind = res;	//µ±Ç°±È½Ï½áµã¼°ÆäÇ°Ò»½áµã
+		ListNode* temp0 = res->next, *behind = res;	//å½“å‰æ¯”è¾ƒç»“ç‚¹åŠå…¶å‰ä¸€ç»“ç‚¹
 		while (behind != tail) {
-			if (temp0->val > temp->val) {	//ÕÒµ½Ó¦·ÅÖÃÎ»ÖÃ
+			if (temp0->val > temp->val) {	//æ‰¾åˆ°åº”æ”¾ç½®ä½ç½®
 				tail->next = temp->next;
 				behind->next = temp;
 				temp->next = temp0;
@@ -1145,13 +1145,13 @@ ListNode* sortList(ListNode* head) {
 	H->next = head;
 	ListNode *fast, *mid;
 	fast = mid = H;
-	//¿ìÂıÖ¸ÕëÕÒ³öÁ´±íÖĞµã
+	//å¿«æ…¢æŒ‡é’ˆæ‰¾å‡ºé“¾è¡¨ä¸­ç‚¹
 	while (fast && fast->next) {
 		mid = mid->next;
 		fast = fast->next->next;
 	}
 	fast = mid->next;
-	mid->next = nullptr;	//ÇĞ¶ÏÇ°ºóÁ½¶ÎÁ½Á´±í
+	mid->next = nullptr;	//åˆ‡æ–­å‰åä¸¤æ®µä¸¤é“¾è¡¨
 	mid = fast;
 
 	head = sortList(head);
@@ -1286,15 +1286,15 @@ int findMin(vector<int>& nums) {
 	int len = nums.size();
 	int left = 0, right = len - 1, mid = (left + right) / 2;
 	while (left <= right) {
-		mid = left + (right - left) / 2;	//ĞèÒª±£Ö¤²»ÄÜ int Ïà¼Ó³öÏÖÒç³ö
-		if (nums[mid] > nums[right]) {		//ÈÃÖĞÎ»ÊıºÍÓÒ±ßµÄÊı×Ö±È½Ï
+		mid = left + (right - left) / 2;	//éœ€è¦ä¿è¯ä¸èƒ½ int ç›¸åŠ å‡ºç°æº¢å‡º
+		if (nums[mid] > nums[right]) {		//è®©ä¸­ä½æ•°å’Œå³è¾¹çš„æ•°å­—æ¯”è¾ƒ
 			left = mid + 1;
 		}
 		else if (nums[mid] < nums[right]) {
-			right = mid;					//ÒòÎªÕâÀïµÄ right ¿ÉÄÜ¾ÍÊÇ×îĞ¡Öµ£¬²»ÄÜ¼ÓÒ»
+			right = mid;					//å› ä¸ºè¿™é‡Œçš„ right å¯èƒ½å°±æ˜¯æœ€å°å€¼ï¼Œä¸èƒ½åŠ ä¸€
 		}
-		else {								//Èç¹ûÖĞ¼äºÍ×îºóÏàµÈ¡£ÔõÃ´²éÕÒ£¬Ö÷ÒªÇ°ºóÒÆ¶¯·½Ïò²»È·¶¨
-			right--;						//ÎŞ·¨È·¶¨µÄÊ±ºò£¬ÈÃ ÓÒ±ßµÄÖµ×Ô¼õ¾ÍºÃÁË
+		else {								//å¦‚æœä¸­é—´å’Œæœ€åç›¸ç­‰ã€‚æ€ä¹ˆæŸ¥æ‰¾ï¼Œä¸»è¦å‰åç§»åŠ¨æ–¹å‘ä¸ç¡®å®š
+			right--;						//æ— æ³•ç¡®å®šçš„æ—¶å€™ï¼Œè®© å³è¾¹çš„å€¼è‡ªå‡å°±å¥½äº†
 		}
 	}
 	return nums[left];
@@ -1348,8 +1348,8 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
 	return nullptr;
 }
 int findPeakElement(vector<int>& nums) {
-	//¹æÂÉÒ»£ºÈç¹ûnums[i] > nums[i+1]£¬ÔòÔÚiÖ®Ç°Ò»¶¨´æÔÚ·åÖµÔªËØ
-	//¹æÂÉ¶ş£ºÈç¹ûnums[i] < nums[i + 1]£¬ÔòÔÚi + 1Ö®ºóÒ»¶¨´æÔÚ·åÖµÔªËØ
+	//è§„å¾‹ä¸€ï¼šå¦‚æœnums[i] > nums[i+1]ï¼Œåˆ™åœ¨iä¹‹å‰ä¸€å®šå­˜åœ¨å³°å€¼å…ƒç´ 
+	//è§„å¾‹äºŒï¼šå¦‚æœnums[i] < nums[i + 1]ï¼Œåˆ™åœ¨i + 1ä¹‹åä¸€å®šå­˜åœ¨å³°å€¼å…ƒç´ 
 	int left = 0, right = nums.size() - 1;
 	while (left < right) {
 		int mid = (left + right) / 2;
@@ -1514,7 +1514,7 @@ int trailingZeroes(int n) {
 	return res;
 }
 int calculateMinimumHP(vector<vector<int>>& dungeon) {
-	//pairÖĞµÚÒ»ÏîÎª³õÊ¼Îª0Çé¿öÏÂµ±Ç°ÑªÁ¿£¬µÚ¶şÏîÎª¹ı³ÌÖĞ¿Û³ıµÄ×î´óÖµ¡£
+	//pairä¸­ç¬¬ä¸€é¡¹ä¸ºåˆå§‹ä¸º0æƒ…å†µä¸‹å½“å‰è¡€é‡ï¼Œç¬¬äºŒé¡¹ä¸ºè¿‡ç¨‹ä¸­æ‰£é™¤çš„æœ€å¤§å€¼ã€‚
 	int row = dungeon.size(), col = dungeon[0].size();
 	vector<vector<pair<int, int>>> flag(row, vector<pair<int, int>>(col, { 0,0 }));
 	flag[0][0] = { dungeon[0][0], dungeon[0][0] };
@@ -1533,14 +1533,14 @@ int calculateMinimumHP(vector<vector<int>>& dungeon) {
 			flag[0][j].second = flag[0][j - 1].second;
 	}
 	for (int i = 1; i != row; ++i) {
-		bool down = false;		//±ê¼ÇÔÚ¼ÆËãµ±Ç°ĞĞÊ±£¬Â·ÏßÊÇ·ñÒÑ¾­ÏÂ½µµ½µ±Ç°ĞĞ£¬ÊÇÔò±ê¼ÇÎªtrue
+		bool down = false;		//æ ‡è®°åœ¨è®¡ç®—å½“å‰è¡Œæ—¶ï¼Œè·¯çº¿æ˜¯å¦å·²ç»ä¸‹é™åˆ°å½“å‰è¡Œï¼Œæ˜¯åˆ™æ ‡è®°ä¸ºtrue
 		for (int j = 1; j != col; ++j) {
 			pair<int, int> up = flag[i - 1][j], left = flag[i][j - 1];
 			if (!down) {
-				int a, b;	//·Ö±ğ´æ´¢Ñ¡Ôñ´ÓÉÏ·½»ò×ó·½¸ñ×ÓÊ±ËùÀÛ¼Æ¿Û³ıµÄÑªÁ¿
+				int a, b;	//åˆ†åˆ«å­˜å‚¨é€‰æ‹©ä»ä¸Šæ–¹æˆ–å·¦æ–¹æ ¼å­æ—¶æ‰€ç´¯è®¡æ‰£é™¤çš„è¡€é‡
 				a = min(up.first + dungeon[i][j], up.second);
 				b = min(left.first + dungeon[i][j], left.second);
-				flag[i][j].second = max(a, b);	//´ÓÁ½ÕßÖĞÕÒ³ö½ÏĞ¡µÄÄÇ¸ö×÷Îªµ±Ç°¸ñ×ÓµÄÀÛ¼Æ¿Û³ıÑªÁ¿£¨¸ºÊı£©
+				flag[i][j].second = max(a, b);	//ä»ä¸¤è€…ä¸­æ‰¾å‡ºè¾ƒå°çš„é‚£ä¸ªä½œä¸ºå½“å‰æ ¼å­çš„ç´¯è®¡æ‰£é™¤è¡€é‡ï¼ˆè´Ÿæ•°ï¼‰
 				if (a >= b)
 					flag[i][j].first = up.first + dungeon[i][j];
 				else {
@@ -1746,15 +1746,15 @@ int numIslands(vector<vector<char>>& grid) {
 }
 int rangeBitwiseAnd(int m, int n) {
 	/*
-	¶ÔÓÚmºÍn£¬ÕÒµ½ËûÃÇ´Ó×î¸ßÎ»¿ªÊ¼ÍêÈ«ÏàÍ¬µÄÎ»£¬
-	¾ÍÊÇÎÒÃÇĞèÒªµÄ½á¹û.ÕâÒ²²»ÄÑÀí½â£¬mºÍn¼ÙÈçÔÚ
-	×î¸ßÎ»µ½xÎ»Ö®¼äµÄ¶ş½øÖÆÎ»ÍêÈ«ÏàÍ¬£¬Õâ¾ÍËµÃ÷
-	ÔÚµİÔöµÄ¹ı³ÌÖĞ+1µÄ²Ù×÷ÓÀÔ¶Ã»ÓĞ¸Ä±ä¹ıÕâĞ©Î»£¬
-	¶øÏà·´µÚx-1µ½×îºóÒ»Î»¶¼ÖÁÉÙ¸Ä±ä¹ıÒ»´Î£¬¶ø¸Ä
-	±äÒ»¶¨ÊÇ0->1»òÕß1->0£¬¾ÍÊÇËµÔÚ×Åm-n+1¸ö²Ù×÷
-	ÊıÖĞÖÁÉÙÓĞÒ»¸öµÄµÚiÎ»£¨i>=0 && i<=x-1£©Îª0£®
-	Òò´Ë£¬µÚx-1Î»Ö®ÏÂÈ«¶¼Îª0,mºÍn´Ó×î¸ßÎ»¿ªÊ¼µÄ
-	Á¬ĞøÏàÍ¬²¿·Ö¾ÍÊÇÎÒÃÇÒªµÄ½á¹û
+	å¯¹äºmå’Œnï¼Œæ‰¾åˆ°ä»–ä»¬ä»æœ€é«˜ä½å¼€å§‹å®Œå…¨ç›¸åŒçš„ä½ï¼Œ
+	å°±æ˜¯æˆ‘ä»¬éœ€è¦çš„ç»“æœ.è¿™ä¹Ÿä¸éš¾ç†è§£ï¼Œmå’Œnå‡å¦‚åœ¨
+	æœ€é«˜ä½åˆ°xä½ä¹‹é—´çš„äºŒè¿›åˆ¶ä½å®Œå…¨ç›¸åŒï¼Œè¿™å°±è¯´æ˜
+	åœ¨é€’å¢çš„è¿‡ç¨‹ä¸­+1çš„æ“ä½œæ°¸è¿œæ²¡æœ‰æ”¹å˜è¿‡è¿™äº›ä½ï¼Œ
+	è€Œç›¸åç¬¬x-1åˆ°æœ€åä¸€ä½éƒ½è‡³å°‘æ”¹å˜è¿‡ä¸€æ¬¡ï¼Œè€Œæ”¹
+	å˜ä¸€å®šæ˜¯0->1æˆ–è€…1->0ï¼Œå°±æ˜¯è¯´åœ¨ç€m-n+1ä¸ªæ“ä½œ
+	æ•°ä¸­è‡³å°‘æœ‰ä¸€ä¸ªçš„ç¬¬iä½ï¼ˆi>=0 && i<=x-1ï¼‰ä¸º0ï¼
+	å› æ­¤ï¼Œç¬¬x-1ä½ä¹‹ä¸‹å…¨éƒ½ä¸º0,må’Œnä»æœ€é«˜ä½å¼€å§‹çš„
+	è¿ç»­ç›¸åŒéƒ¨åˆ†å°±æ˜¯æˆ‘ä»¬è¦çš„ç»“æœ
 	*/
 	int offset = 0;
 	while (m && n) {
@@ -2193,11 +2193,11 @@ int countNodes(TreeNode* root) {
 	int h = height(root);
 	int nums = 0;
 	while (root != NULL) {
-		if (h - 1 == height(root->right)) { //×ó×ÓÊ÷ÎªÂú
-			nums += 1 << h;		//Ïàµ±ÓÚpow(2,h - 1)
+		if (h - 1 == height(root->right)) { //å·¦å­æ ‘ä¸ºæ»¡
+			nums += 1 << h;		//ç›¸å½“äºpow(2,h - 1)
 			root = root->right;
 		}
-		else {		//ÓÒ×ÓÊ÷ÎªÂú£¬ÇÒÉî¶ÈÉÙ1
+		else {		//å³å­æ ‘ä¸ºæ»¡ï¼Œä¸”æ·±åº¦å°‘1
 			nums += 1 << h - 1;
 			root = root->left;
 		}
@@ -2704,24 +2704,24 @@ int nthUglyNumber0(int n) {
 int nthUglyNumber(int n) {
 	int start = 1;
 
-	vector<int> res;      //´æ·Å½á¹û
-	res.push_back(start);   //µÚÒ»¸öÊıÏÈ·Å½øÈ¥
-	if (n == 1)    //´¦ÀíÌØÊâÇé¿ö
+	vector<int> res;      //å­˜æ”¾ç»“æœ
+	res.push_back(start);   //ç¬¬ä¸€ä¸ªæ•°å…ˆæ”¾è¿›å»
+	if (n == 1)    //å¤„ç†ç‰¹æ®Šæƒ…å†µ
 		return 1;
-	int index = 1;   //ĞòÁĞºÅ
-	int p2, p3, p5;   //¼ÇÂ¼µÄÊÇµ±Ç°³ËÒÔ2£¬3£¬5µÄÊıµÄË÷Òı¡£
-	p2 = p3 = p5 = 0;   //ËùÒÔ³õÊ¼»¯Îª1£¬Ã¿´ÎÃ¶¾ÙÈı¸öÊı
+	int index = 1;   //åºåˆ—å·
+	int p2, p3, p5;   //è®°å½•çš„æ˜¯å½“å‰ä¹˜ä»¥2ï¼Œ3ï¼Œ5çš„æ•°çš„ç´¢å¼•ã€‚
+	p2 = p3 = p5 = 0;   //æ‰€ä»¥åˆå§‹åŒ–ä¸º1ï¼Œæ¯æ¬¡æšä¸¾ä¸‰ä¸ªæ•°
 	while (index<n)
 	{
-		res.push_back(min(2 * res[p2], min(3 * res[p3], 5 * res[p5])));   //Ã¿´Î°Ñ×îĞ¡µÄ·ÅÈëÊı×é
+		res.push_back(min(2 * res[p2], min(3 * res[p3], 5 * res[p5])));   //æ¯æ¬¡æŠŠæœ€å°çš„æ”¾å…¥æ•°ç»„
 		if (2 * res[p2] == *(res.end() - 1))   p2++;
-		//Èç¹û¸Õ·ÅÈëµÄÊÇ2*res[p2],¾Í°Ñp2++,ÏÂ´Î¾ÍÓÃÏÂÒ»¸öÊı³ËÒÔ2ÁË¡£
+		//å¦‚æœåˆšæ”¾å…¥çš„æ˜¯2*res[p2],å°±æŠŠp2++,ä¸‹æ¬¡å°±ç”¨ä¸‹ä¸€ä¸ªæ•°ä¹˜ä»¥2äº†ã€‚
 		if (3 * res[p3] == *(res.end() - 1))   p3++;
 		if (5 * res[p5] == *(res.end() - 1))   p5++;
-		//ÉÏÃæÈı¸öifÖ®¼ä²»ÒªÓÃelse£¬ÒòÎª¿ÉÄÜ´æÔÚ¶à¸ö×îĞ¡Öµ£¬¶¼Ğè¼Ó1¡£
-		index++;            //Ë÷Òı¼Ó1£¬
+		//ä¸Šé¢ä¸‰ä¸ªifä¹‹é—´ä¸è¦ç”¨elseï¼Œå› ä¸ºå¯èƒ½å­˜åœ¨å¤šä¸ªæœ€å°å€¼ï¼Œéƒ½éœ€åŠ 1ã€‚
+		index++;            //ç´¢å¼•åŠ 1ï¼Œ
 	}
-	return *(res.end() - 1);   //·µ»Ø×îºóÒ»¸öÊı
+	return *(res.end() - 1);   //è¿”å›æœ€åä¸€ä¸ªæ•°
 							   // write your code here
 }
 int missingNumber(vector<int>& nums) {
@@ -3497,7 +3497,7 @@ vector<int> largestDivisibleSubset(vector<int>& nums) {
 	if (nums.empty())	return {};
 	int len = nums.size();
 	sort(nums.begin(), nums.end());
-	// [Öµ, {Ç°Ò»ÖµµÄÎ»ÖÃ, µ½´ËÖµÊ±×î³¤³¤¶È}]
+	// [å€¼, {å‰ä¸€å€¼çš„ä½ç½®, åˆ°æ­¤å€¼æ—¶æœ€é•¿é•¿åº¦}]
 	vector<pair<int, pair<int, int>>> flag;
 	flag.push_back({ 1, {-1,1} });
 	for (int i = 0; i != len; ++i)
@@ -3649,9 +3649,9 @@ int combinationSum4(vector<int>& nums, int target) {
 	vector<int>dp(target + 1, 0);
 	dp[0] = 1;
 	for (int i = 1; i <= target; i++) {
-		// ÕâÀï±éÀú´Óiµ½targetµÄËùÓĞÖµ
+		// è¿™é‡Œéå†ä»iåˆ°targetçš„æ‰€æœ‰å€¼
 		for (int j = 0; j<nums.size(); j++) {
-			// ÕâÒ»²½µş¼ÓÉú³Édp[i]
+			// è¿™ä¸€æ­¥å åŠ ç”Ÿæˆdp[i]
 			if (nums[j] <= i) dp[i] += dp[i - nums[j]];
 			else break;
 		}
@@ -4480,8 +4480,8 @@ Node1* flatten(Node1* head) {
 	}
 	return res->next;
 }
-int helpminMutation(const string& start, const string& target) {  //ÕÒ³öÁ½×Ö·û´®²»Í¬×Ö·ûÊı
-	if (start.size() != target.size())	return -1;  //³¤¶È²»Í¬Ö±½Ó·µ»Ø-1£¬±íÊ¾ÎŞ·¨Æ¥Åä
+int helpminMutation(const string& start, const string& target) {  //æ‰¾å‡ºä¸¤å­—ç¬¦ä¸²ä¸åŒå­—ç¬¦æ•°
+	if (start.size() != target.size())	return -1;  //é•¿åº¦ä¸åŒç›´æ¥è¿”å›-1ï¼Œè¡¨ç¤ºæ— æ³•åŒ¹é…
 	int len = start.size(), res = 0;
 	for (int i = 0; i != len; ++i) {
 		if (start[i] != target[i])
@@ -4489,17 +4489,17 @@ int helpminMutation(const string& start, const string& target) {  //ÕÒ³öÁ½×Ö·û´®
 	}
 	return res;
 }
-int dfsMinMutation(const vector<vector<bool>>& flag, int start, int tar) {  //BFSÕÒ³ö×îĞ¡²ãÊı
-	unordered_set<int> his;  //´æ´¢ÒÑ·ÃÎÊ¹ıµÄ×Ö·û´®
+int dfsMinMutation(const vector<vector<bool>>& flag, int start, int tar) {  //BFSæ‰¾å‡ºæœ€å°å±‚æ•°
+	unordered_set<int> his;  //å­˜å‚¨å·²è®¿é—®è¿‡çš„å­—ç¬¦ä¸²
 	int len = flag.size(), res = 0, templen = 1;
 	queue<int> floor;
 	floor.push(start);  //
-	his.insert(start);  //Ñ­»·Ç°×¼±¸¹¤×÷
-	while (!floor.empty()) {  //ÓëÖ®Ç°µÄ·Ö²ã²ãĞò±éÀúÏàÍ¬
+	his.insert(start);  //å¾ªç¯å‰å‡†å¤‡å·¥ä½œ
+	while (!floor.empty()) {  //ä¸ä¹‹å‰çš„åˆ†å±‚å±‚åºéå†ç›¸åŒ
 		while (templen != 0) {
 			int temp = floor.front();
 			floor.pop();
-			if (temp == tar)	return res;  //BFSµ½´ïÄ¿±ê×Ö·û´®£¬Ö±½Ó·µ»Øµ±Ç°²ãÊı
+			if (temp == tar)	return res;  //BFSåˆ°è¾¾ç›®æ ‡å­—ç¬¦ä¸²ï¼Œç›´æ¥è¿”å›å½“å‰å±‚æ•°
 			for (int i = 0; i != len; ++i) {
 				if (flag[temp][i] && !his.count(i)) {
 					floor.push(i);
@@ -4511,21 +4511,21 @@ int dfsMinMutation(const vector<vector<bool>>& flag, int start, int tar) {  //BF
 		++res;
 		templen = floor.size();
 	}
-	return -1;   //Î´ÕÒµ½£¬·µ»Ø-1
+	return -1;   //æœªæ‰¾åˆ°ï¼Œè¿”å›-1
 }
-//×öµÄÊ±ºòÃ»ÓĞ½«³õÊ¼×Ö·û´®´æÈëbankÖĞ£¬¶øÊÇ·Ö±ğ²éÕÒbankÖĞÓë³õÊ¼×Ö·û´®ÍêÈ«ÏàÍ¬»òÏà²îÒ»¸ö×Ö·ûµÄ×Ö·û´®£¬Ó¦¸ÃÊÇÓĞµãÂé·³ÁË£¬¿ÉÒÔÖ±½Ó½«³õÊ¼×Ö·û´®´æÈëbankÖĞ
+//åšçš„æ—¶å€™æ²¡æœ‰å°†åˆå§‹å­—ç¬¦ä¸²å­˜å…¥bankä¸­ï¼Œè€Œæ˜¯åˆ†åˆ«æŸ¥æ‰¾bankä¸­ä¸åˆå§‹å­—ç¬¦ä¸²å®Œå…¨ç›¸åŒæˆ–ç›¸å·®ä¸€ä¸ªå­—ç¬¦çš„å­—ç¬¦ä¸²ï¼Œåº”è¯¥æ˜¯æœ‰ç‚¹éº»çƒ¦äº†ï¼Œå¯ä»¥ç›´æ¥å°†åˆå§‹å­—ç¬¦ä¸²å­˜å…¥bankä¸­
 int minMutation(string start, string end, vector<string>& bank) {
 	if (start.size() != end.size())	return -1;
 	int len = start.size(), nums = bank.size();
-	unordered_map<int, vector<int>> step;  //´Ë´¦·Ö±ğ´æ´¢bankÖĞÓë³õÊ¼×Ö·û´®ÏàÍ¬ÒÔ¼°Ïà²îÒ»¸ö×Ö·ûµÄ×Ö·û´®µÄÎ»ÖÃ£¬ÓÃvector¸ü·½±ã£¬¿ÉÒÔÔÙÓÅ»¯Ò»ÏÂ¡£
-	vector<vector<bool>> flag(nums, (vector<bool>(nums, false))); //±ê¼ÇbankÖĞ¸÷¸ö×Ö·û´®Ö®¼äÊÇ·ñÏà²îÒ»¸ö×Ö·û£¬Ïà²îÒ»¸öµÄÎªtrue£¬ÏàÍ¬»ò´óÓÚ1µÄÎªfalse¡£
-	for (int i = 0; i != nums; ++i) {  //½«bankÖĞÓëstartÏàÍ¬»òÏà²îÒ»¸öµÄ´æÈëstepÖĞ
+	unordered_map<int, vector<int>> step;  //æ­¤å¤„åˆ†åˆ«å­˜å‚¨bankä¸­ä¸åˆå§‹å­—ç¬¦ä¸²ç›¸åŒä»¥åŠç›¸å·®ä¸€ä¸ªå­—ç¬¦çš„å­—ç¬¦ä¸²çš„ä½ç½®ï¼Œç”¨vectoræ›´æ–¹ä¾¿ï¼Œå¯ä»¥å†ä¼˜åŒ–ä¸€ä¸‹ã€‚
+	vector<vector<bool>> flag(nums, (vector<bool>(nums, false))); //æ ‡è®°bankä¸­å„ä¸ªå­—ç¬¦ä¸²ä¹‹é—´æ˜¯å¦ç›¸å·®ä¸€ä¸ªå­—ç¬¦ï¼Œç›¸å·®ä¸€ä¸ªçš„ä¸ºtrueï¼Œç›¸åŒæˆ–å¤§äº1çš„ä¸ºfalseã€‚
+	for (int i = 0; i != nums; ++i) {  //å°†bankä¸­ä¸startç›¸åŒæˆ–ç›¸å·®ä¸€ä¸ªçš„å­˜å…¥stepä¸­
 		int tempstep = helpminMutation(start, bank[i]);
 		if (tempstep <= 1)
 			step[tempstep].push_back(i);
 	}
-	if (step.empty())	return -1;  //Ã»ÕÒµ½£¬ÎŞ·¨×ª»»
-	int tar = -1; //²éÕÒÄ¿±ê×Ö·û´®Î»ÖÃ
+	if (step.empty())	return -1;  //æ²¡æ‰¾åˆ°ï¼Œæ— æ³•è½¬æ¢
+	int tar = -1; //æŸ¥æ‰¾ç›®æ ‡å­—ç¬¦ä¸²ä½ç½®
 	for (int i = 0; i != nums; ++i) {
 		if (i == nums)	return -1;
 		int tempstep = helpminMutation(end, bank[i]);
@@ -4534,12 +4534,12 @@ int minMutation(string start, string end, vector<string>& bank) {
 			break;
 		}
 	}
-	if (tar == -1)	return -1; //Ã»ÕÒµ½£¬·µ»Ø-1
-	for (int i = 0; i != nums; ++i) {  //ÅĞ¶ÏbankÖĞ¸÷¸ö×Ö·û´®¼äµÄ¹ØÏµ£¬´æÈëflagÖĞ
+	if (tar == -1)	return -1; //æ²¡æ‰¾åˆ°ï¼Œè¿”å›-1
+	for (int i = 0; i != nums; ++i) {  //åˆ¤æ–­bankä¸­å„ä¸ªå­—ç¬¦ä¸²é—´çš„å…³ç³»ï¼Œå­˜å…¥flagä¸­
 		if (bank[i].size() != len)	continue;
 		for (int j = i + 1; j != nums; ++j) {
 			if (helpminMutation(bank[i], bank[j]) == 1) {
-				flag[i][j] = true;  //ÎŞÏòÍ¼£¬[i][j]ºÍ[j][i]¶¼Ó¦¸ÃÖÃtrue
+				flag[i][j] = true;  //æ— å‘å›¾ï¼Œ[i][j]å’Œ[j][i]éƒ½åº”è¯¥ç½®true
 				flag[j][i] = true;
 			}
 		}
@@ -4547,12 +4547,12 @@ int minMutation(string start, string end, vector<string>& bank) {
 	int res = INT_MAX;
 	for (auto s : step) {
 		for (int i = 0; i != s.second.size(); ++i) {
-			int tempres = dfsMinMutation(flag, s.second[i], tar); //´ÓÓëstartÏàÍ¬µÄ»òÏà²îÒ»¸ö×Ö·ûµÄ×Ö·û´®¿ªÊ¼½øĞĞBFS
-			if (tempres != -1 && tempres + s.first < res)  //×¢ÒâĞèÒª¼Ós.first£¬first´æ´¢µÄÊÇÓëstart×Ö·û´®Ïà²îµÄ×Ö·ûÊı£¬Ö»ÄÜÊÇ0»ò1
+			int tempres = dfsMinMutation(flag, s.second[i], tar); //ä»ä¸startç›¸åŒçš„æˆ–ç›¸å·®ä¸€ä¸ªå­—ç¬¦çš„å­—ç¬¦ä¸²å¼€å§‹è¿›è¡ŒBFS
+			if (tempres != -1 && tempres + s.first < res)  //æ³¨æ„éœ€è¦åŠ s.firstï¼Œfirstå­˜å‚¨çš„æ˜¯ä¸startå­—ç¬¦ä¸²ç›¸å·®çš„å­—ç¬¦æ•°ï¼Œåªèƒ½æ˜¯0æˆ–1
 				res = tempres + s.first;
 		}
 	}
-	return res == INT_MAX ? -1 : res;  //ÈôresÈÔÎªINT_MAX£¬±íÊ¾Î´ÕÒµ½Â·¾¶£¬·µ»Ø-1
+	return res == INT_MAX ? -1 : res;  //è‹¥resä»ä¸ºINT_MAXï¼Œè¡¨ç¤ºæœªæ‰¾åˆ°è·¯å¾„ï¼Œè¿”å›-1
 }
 int countSegments(string s) {
 	if (s.empty())   return 0;
@@ -5180,12 +5180,12 @@ bool helpMakesquare(vector<int>& nums, vector<int>& sums, int pos, int target) {
 	if (pos >= nums.size()) {
 		return sums[0] == target && sums[1] == target && sums[2] == target && sums[3] == target;
 	}
-	//¶ÔÓÚµ±Ç°Õâ¸ö»ğ²ñ£¬³¢ÊÔÆ´ÈëÉÏÏÂ×óÓÒËÄ¸ö±ß
+	//å¯¹äºå½“å‰è¿™ä¸ªç«æŸ´ï¼Œå°è¯•æ‹¼å…¥ä¸Šä¸‹å·¦å³å››ä¸ªè¾¹
 	for (int i = 0; i < 4; ++i) {
 		if (sums[i] + nums[pos] > target) continue;
-		sums[i] += nums[pos]; //°Ñµ±Ç°»ğ²ñ´Ói¸ö±ßÖĞÄÃ³öÀ´£¬ºÃ³¢ÊÔÏÂÒ»Ìõ±ß
-		if (helpMakesquare(nums, sums, pos + 1, target)) return true;  //Èç¹ûÕâ¸ö»ğ²ñ±»³É¹¦Ê¹ÓÃ£¬¾Í¿ªÊ¼³¢ÊÔÆ´ÏÂÒ»¸ù»ğ²ñ
-		sums[i] -= nums[pos];  //ÓÃµ±Ç°»ğ²ñÆ´µÚi¸ö±ß
+		sums[i] += nums[pos]; //æŠŠå½“å‰ç«æŸ´ä»iä¸ªè¾¹ä¸­æ‹¿å‡ºæ¥ï¼Œå¥½å°è¯•ä¸‹ä¸€æ¡è¾¹
+		if (helpMakesquare(nums, sums, pos + 1, target)) return true;  //å¦‚æœè¿™ä¸ªç«æŸ´è¢«æˆåŠŸä½¿ç”¨ï¼Œå°±å¼€å§‹å°è¯•æ‹¼ä¸‹ä¸€æ ¹ç«æŸ´
+		sums[i] -= nums[pos];  //ç”¨å½“å‰ç«æŸ´æ‹¼ç¬¬iä¸ªè¾¹
 	}
 	return false;
 }
@@ -5193,7 +5193,7 @@ bool makesquare(vector<int>& nums) {
 	if (nums.empty() || nums.size()<4) return false;
 	int sum = accumulate(nums.begin(), nums.end(), 0);
 	if (sum % 4 != 0) return false;
-	vector<int> sums(4, 0);  //³¤¶ÈÎª4µÄÊı×ésumsÀ´±£´æÃ¿¸ö±ßµÄ³¤¶ÈºÍ
+	vector<int> sums(4, 0);  //é•¿åº¦ä¸º4çš„æ•°ç»„sumsæ¥ä¿å­˜æ¯ä¸ªè¾¹çš„é•¿åº¦å’Œ
 	sort(nums.rbegin(), nums.rend());
 	return helpMakesquare(nums, sums, 0, sum / 4);
 }
@@ -5554,7 +5554,7 @@ public:
 		solve(s, 0);
 		return result;
 	}
-	// ¼ì²éÊÇ·ñÎª»ØÎÄ´®
+	// æ£€æŸ¥æ˜¯å¦ä¸ºå›æ–‡ä¸²
 	bool isPalindrome(const string& s) {
 		int begin = 0, end = s.length() - 1;
 		while (begin < end) {
@@ -5565,19 +5565,19 @@ public:
 		}
 		return true;
 	}
-	// µİ¹é½â¾ö
+	// é€’å½’è§£å†³
 	void solve(const string &s, int pos) {
 		if (pos == s.length()) {
 			result.push_back(path);
 			return;
 		}
 		for (int i = pos; i < s.length(); ++i) {
-			string prefix = s.substr(pos, i - pos + 1);	//ÒÔs[pos]×Ö·û¿ªÍ·µÄËùÓĞÇ°×º
-			if (!isPalindrome(prefix))                  //²»ÊÇ»ØÎÄ´®¾Í¼ÌĞøÕÒ
+			string prefix = s.substr(pos, i - pos + 1);	//ä»¥s[pos]å­—ç¬¦å¼€å¤´çš„æ‰€æœ‰å‰ç¼€
+			if (!isPalindrome(prefix))                  //ä¸æ˜¯å›æ–‡ä¸²å°±ç»§ç»­æ‰¾
 				continue;
-			path.push_back(prefix);						//¼ÓÈëpath
-			solve(s, i + 1);							//´ÓÒÑ¾­ÕÒµ½µÄ»ØÎÄ´®µÄÏÂÒ»¸ö×Ö·û¼ÌĞøÕÒ
-			path.pop_back();							//¼ÇµÃÒÆ³ı,path»¹Òª¼ÌĞø¸´ÓÃ
+			path.push_back(prefix);						//åŠ å…¥path
+			solve(s, i + 1);							//ä»å·²ç»æ‰¾åˆ°çš„å›æ–‡ä¸²çš„ä¸‹ä¸€ä¸ªå­—ç¬¦ç»§ç»­æ‰¾
+			path.pop_back();							//è®°å¾—ç§»é™¤,pathè¿˜è¦ç»§ç»­å¤ç”¨
 		}
 	}
 };
@@ -5688,8 +5688,70 @@ TreeNode* sortedArrayToBST0(vector<int>& nums) {
 	TreeNode* head = new TreeNode(0);
 	return helpBST(nums, 0, nums.size());
 }
+vector<vector<int>> pathSum00(TreeNode* root, int sum) {
+	if (!root)  return {};
+	int tar = sum;
+	vector<vector<int>> res;
+	vector<int> path;
+	stack<TreeNode*> st;
+	TreeNode* temp = root, *hot = nullptr;
+	while (temp) {
+		st.push(temp);
+		path.push_back(temp->val);
+		tar -= temp->val;
+		temp = temp->left;
+	}
+	while (!st.empty()) {
+		temp = st.top();
+		st.pop();
+		if (!temp->right || temp->right == hot) {
+			if (!temp->left && ! temp->right && tar == 0)
+				res.push_back(path);
+			tar += temp->val;
+			path.pop_back();
+			hot = temp;
+		}
+		else {
+			st.push(temp);
+			temp = temp->right;
+			while (temp) {
+				st.push(temp);
+				path.push_back(temp->val);
+				tar -= temp->val;
+				temp = temp->left;
+			}
+		}
+	}
+	return res;
+}
 int main()
 {
-	vector<int> aaa{ -10,-3,0,5,9 };
-	auto head = sortedArrayToBST0(aaa);
+	TreeNode* tr5_1 = new TreeNode(5);
+	TreeNode* tr4_1 = new TreeNode(4);
+	TreeNode* tr8 = new TreeNode(8);
+	TreeNode* tr11 = new TreeNode(11);
+	TreeNode* tr13 = new TreeNode(13);
+	TreeNode* tr4_2 = new TreeNode(4);
+	TreeNode* tr7 = new TreeNode(7);
+	TreeNode* tr2 = new TreeNode(2);
+	TreeNode* tr5_2 = new TreeNode(5);
+	TreeNode* tr1 = new TreeNode(1);
+
+	tr5_1->left = tr4_1;
+	tr5_1->right = tr8;
+	tr4_1->left = tr11;
+	tr8->left = tr13;
+	tr8->right = tr4_2;
+	tr11->left = tr7;
+	tr11->right = tr2;
+	tr4_2->left = tr5_2;
+	tr4_2->right = tr1;
+
+	auto res = pathSum00(tr5_1, 22);
+	for (vector<int> aa : res) {
+		for (int a : aa)
+			cout << a << " ";
+		cout << endl;
+	}
+	cout << endl;
 }
