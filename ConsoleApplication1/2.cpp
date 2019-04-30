@@ -5724,32 +5724,96 @@ vector<vector<int>> pathSum00(TreeNode* root, int sum) {
 	}
 	return res;
 }
+bool Pac(vector<vector<int>>& matrix, int x, int y) {
+	if (x == 0 || y == 0)   return true;
+	bool res = false;
+	if (x > 0 && matrix[x - 1][y] <= matrix[x][y])
+		res = res || Pac(matrix, x - 1, y);
+	if (y > 0 && matrix[x][y - 1] <= matrix[x][y])
+		res = res || Pac(matrix, x, y - 1);
+	if (x < matrix.size() - 1 && matrix[x + 1][y] <= matrix[x][y])
+		res = res || Pac(matrix, x + 1, y);
+	if (y < matrix[0].size() - 1 && matrix[x][y + 1] <= matrix[x][y])
+		res = res || Pac(matrix, x, y + 1);
+	return res;
+}
+bool Alt(vector<vector<int>>& matrix, int x, int y) {
+	if (x == matrix.size() - 1 || y == matrix[0].size() - 1)   return true;
+	bool res = false;
+	if (x > 0 && matrix[x - 1][y] <= matrix[x][y])
+		res = res || Alt(matrix, x - 1, y);
+	if (y > 0 && matrix[x][y - 1] <= matrix[x][y])
+		res = res || Alt(matrix, x, y - 1);
+	if (x < matrix.size() - 1 && matrix[x + 1][y] <= matrix[x][y])
+		res = res || Alt(matrix, x + 1, y);
+	if (y < matrix[0].size() - 1 && matrix[x][y + 1] <= matrix[x][y])
+		res = res || Alt(matrix, x, y + 1);
+	return res;
+}
+vector<pair<int, int>> pacificAtlantic(vector<vector<int>>& matrix) {
+	if (matrix.empty()) return {};
+	int row = matrix.size(), col = matrix[0].size();
+	if (!col)   return {};
+	vector<pair<int, int>> res;
+	for (int i = 0; i != row; ++i) {
+		for (int j = 0; j != col; ++j) {
+			if (Pac(matrix, i, j) && Alt(matrix, i, j))
+				res.push_back({ i, j });
+		}
+	}
+	return res;
+}
+class suduko {
+	bool flag = false;
+public:
+	void helpSolve(vector<vector<char>>& board, int i, int j) {
+		if (i == 9 || flag) {
+			flag = true;
+			return;
+		}
+		if (board[i][j] != '.')
+			helpSolve(board, i + (j + 1) / 9, (j + 1) % 9);
+		else {
+			vector<bool> hot(10, true);
+			for (int m = 0; m != 9; ++m) {
+				if (board[i][m] != '.')
+					hot[board[i][m] - '0'] = false;
+				if (board[m][j] != '.')
+					hot[board[m][j] - '0'] = false;
+				if (board[i / 3 * 3 + m / 3][j / 3 * 3 + m % 3] != '.')
+					hot[board[i / 3 * 3 + m / 3][j / 3 * 3 + m % 3] - '0'] = false;
+			}
+			for (int num = 1; num != 10; ++num) {
+				if (hot[num]) {
+					board[i][j] = num + '0';
+					helpSolve(board, i + (j + 1) / 9, (j + 1) % 9);
+					if (flag)   return;
+					board[i][j] = '.';
+				}
+			}
+		}
+	}
+	void solveSudoku(vector<vector<char>>& board) {
+		helpSolve(board, 0, 0);
+	}
+};
 int main()
 {
-	TreeNode* tr5_1 = new TreeNode(5);
-	TreeNode* tr4_1 = new TreeNode(4);
-	TreeNode* tr8 = new TreeNode(8);
-	TreeNode* tr11 = new TreeNode(11);
-	TreeNode* tr13 = new TreeNode(13);
-	TreeNode* tr4_2 = new TreeNode(4);
-	TreeNode* tr7 = new TreeNode(7);
-	TreeNode* tr2 = new TreeNode(2);
-	TreeNode* tr5_2 = new TreeNode(5);
-	TreeNode* tr1 = new TreeNode(1);
-
-	tr5_1->left = tr4_1;
-	tr5_1->right = tr8;
-	tr4_1->left = tr11;
-	tr8->left = tr13;
-	tr8->right = tr4_2;
-	tr11->left = tr7;
-	tr11->right = tr2;
-	tr4_2->left = tr5_2;
-	tr4_2->right = tr1;
-
-	auto res = pathSum00(tr5_1, 22);
-	for (vector<int> aa : res) {
-		for (int a : aa)
+	vector<vector<char>> aaa{
+		{'5', '3', '.', '.', '7', '.', '.', '.', '.'}, 
+		{'6', '.', '.', '1', '9', '5', '.', '.', '.'}, 
+		{'.', '9', '8', '.', '.', '.', '.', '6', '.'}, 
+		{'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+		{'4', '.', '.', '8', '.', '3', '.', '.', '1'}, 
+		{'7', '.', '.', '.', '2', '.', '.', '.', '6'}, 
+		{'.', '6', '.', '.', '.', '.', '2', '8', '.'}, 
+		{'.', '.', '.', '4', '1', '9', '.', '.', '5'}, 
+		{'.', '.', '.', '.', '8', '.', '.', '7', '9'}
+	};
+	suduko sss;
+	sss.solveSudoku(aaa);
+	for (auto aa : aaa) {
+		for (auto a : aa)
 			cout << a << " ";
 		cout << endl;
 	}
